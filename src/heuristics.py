@@ -68,9 +68,11 @@ def calculate_global_embedding(
         valid_neighbor_orig_ids = []
         valid_similarities = []
 
+        print(f"---------- ---------Query String :-> {query_token_str} ------------ ---------- ") #Debug
         for sim, idx in zip(distances, indices):
             if idx == -1: continue
             neighbor_token = index_to_token.get(idx)
+            print(f"Token:-> {neighbor_token} ; Similarity:-> {sim}") #Debug
             if neighbor_token is None: continue
 
             neighbor_orig_id = old_vocab.get(neighbor_token)
@@ -80,6 +82,8 @@ def calculate_global_embedding(
 
         if not valid_neighbor_orig_ids:
             return None, None
+
+        
 
 
         similarities_tensor = torch.tensor(valid_similarities, dtype=data_type, device=device)
